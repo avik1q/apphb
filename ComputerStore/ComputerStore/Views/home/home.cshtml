@@ -1,0 +1,138 @@
+﻿@model ComputerStore.ViewModel.inventoryVM
+@using ComputerStore.Models
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <!-- Bootstrap core CSS -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <script src="~/Scripts/jquery-2.1.4.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="~/css/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="~/css/js/ie-emulation-modes-warning.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="~/css/js/html5shiv.min.js"></script>
+      <script src="~/css/js/respond.min.js"></script>
+    <![endif]-->
+    <!-- Custom styles for this template -->
+    <link href="~/css/jumbotron.css" rel="stylesheet">
+    <title>דף הבית -חנות מחשבים</title>
+    <style>
+                .load_center{
+            
+            padding:1px;
+            overflow:hidden;
+            border:solid;
+            border-color:black;
+            width:100px;
+            height:100px;
+            border-radius: 10%;
+            box-shadow: 5px 5px 2px #888888;
+            border-width: 1px;
+        }
+    </style>
+</head>
+<body>
+    @Html.Partial("ToolBar")
+    <div>
+        <div class="jumbotron" style="text-align:right">
+            <div class="container">
+                <h1>חנות המחשבים הגדולה ברשת</h1>
+                <p>ברוכים הבאים לחנות המחשבים הגדולה ברשת כאן תוכלו למצוא מוצרים יחודיים במחירים מצחיקים</p>
+            </div>
+        </div>
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- front ad -->
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:728px;height:90px"
+             data-ad-client="ca-pub-6007936768792181"
+             data-ad-slot="2750839353"></ins>
+        <script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+        @{
+            if (ViewData["Error"] != null)
+            {
+                <div class="alert alert alert-danger">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <p class="text-right"><strong> שגיאה </strong> @ViewData["Error"]</p>
+
+                </div>
+            }
+            if (ViewData["Ok"] != null)
+            {
+                <div class="alert alert-success">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <p class="text-right"><strong> !הפעולה עברה בהצלחה </strong> @ViewData["Ok"]</p>
+
+                </div>
+            }
+
+        }
+        <center> <div id="loading" style="color:blue;border-color:blue" class="load_center" ><img src="~/pic/responsive-spinner.svg" alt="העמוד בטעינה..."><BR />...העמוד בטעינה</div></center>
+        <div id="items"></div>
+
+ 
+    </div>
+    <script type="text/javascript">
+        $.get("GetitemsReqAsync", null, HandleitemsReqAsync);
+
+        function HandleitemsReqAsync(listOfItemsJson) {
+            var theItems = $("#items");
+            theItems.append("<div class=\"container marketing\"> <div class=\"row\">")
+            for (var i = 0; i < listOfItemsJson.length; i++) {
+
+                var row = " <form action=\"buy\" method=\"get\">" +
+                    "<div class=\"col-lg-4\">" +
+                   "<center>" +
+                      " <img class=\"img-rounded\" src=\"" + listOfItemsJson[i].url + "\" alt=\"Generic placeholder image\" width=\"140\" height=\"140\">" +
+
+                       "<h4>" + listOfItemsJson[i].Name + "</h4><input id=\"ref\" name=\"ref\" type=\"hidden\" value=\"" + listOfItemsJson[i].BarCode + "\" />" +
+                      " <h3>₪" + listOfItemsJson[i].Price + " : מחיר</h3>";
+
+                if (listOfItemsJson[i].Amount == 0) {
+                    row = row + " <p> <span style=\"color:red\">נגמר המלאי</span> </p>";
+                }
+                else if (listOfItemsJson[i].Amount == 1) {
+                    row = row + " <p><span style=\"color:red\"> !אחרון במלאי - הקודם זוכה</span></p>" +
+               " <input id=\"Submit1\" type=\"submit\" class=\"btn btn-default\" value=\"לקניה\" />";
+                }
+                else {
+                    row = row + "<input id=\"Submit1\" type=\"submit\" class=\"btn btn-default\" value=\"לקניה\" /> ";
+                }
+                row = row + "   </center> </div> </form> ";
+                theItems.append(row);
+            }
+
+
+
+
+            theItems.append(" </div></div>");
+
+
+
+
+            $("#loading").text("");
+            //$("#loading").animsition({set timeout: true});
+            $("#loading").remove();
+        }
+    </script>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="~/css/js/jquery.min.js"></script>
+    <script src="~/css/js/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="~/css/js/holder.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="~/css/js/ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>

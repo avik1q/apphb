@@ -1,0 +1,43 @@
+﻿<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header navbar-right">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @{ if (Session["Admin"] != null)
+                {
+                    <span class="navbar-brand navbar-right" style="color:white">@Html.ActionLink("דף ניהול", "Index", "Admin")</span>
+                        <span class="navbar-brand navbar-right" style="color:white">@Html.ActionLink("הוספת מוצר", "InventoryPage", "Admin")</span>
+                        <span class="navbar-brand navbar-right" style="color:white">@Html.ActionLink("מוצרים", "ViewItem", "Admin")</span>
+                        <span class="navbar-brand navbar-right" style="color:white">@Html.ActionLink("הזמנות", "ViewOrders", "Admin")</span>
+                        <span class="navbar-brand navbar-right" style="color:white">@Html.ActionLink("חיפוש מוצרים", "SearchItems", "Home")</span>
+                }
+                else
+                {
+                    <span class="navbar-brand navbar-right" style="color:white">@Html.ActionLink("כניסה למנהל", "Login", "Admin")</span>
+                    <span class="navbar-brand navbar-right" style="color:white">@Html.ActionLink("דף הבית", "home", "Home")</span>
+                       <span class="navbar-brand navbar-right" style="color:white">@Html.ActionLink("חיפוש מוצרים", "SearchItems","Home")</span>
+                }
+            }
+        </div>
+        <div id="navbar" class="navbar-collapse collapse navbar-left">
+
+            @{ if (Session["Admin"] != null)
+                {
+
+                    <span class="navbar-brand" style="color:white">  @Session["Admin"]</span>
+                        <span class="navbar-brand" style="color:white">@Html.ActionLink("התנתק", "Logout", "Admin")</span>
+                }
+                else
+                {
+                    <span class="navbar-brand" style="color:white">  שלום אורח</span>
+                }
+            }
+
+        </div><!--/.navbar-collapse -->
+    </div>
+</nav>
+
