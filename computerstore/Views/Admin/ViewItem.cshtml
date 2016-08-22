@@ -1,0 +1,134 @@
+﻿@model ComputerStore.ViewModel.inventoryVM
+@using ComputerStore.Models
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>צפיה במלאי</title>
+    <script src="~/Scripts/jquery-2.1.4.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <!-- Bootstrap core CSS -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="~/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="~/css/jumbotron.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="~/css/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="~/css/js/html5shiv.min.js"></script>
+      <script src="~/css/js/respond.min.js"></script>
+    <![endif]-->
+
+    <meta name="NetsparkQuiltingResult" total-length="5106" removed="0" rules-found="w2845,w3477,w7694,w221,w4318,w8192,w3281,w5783" />
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top text-right">
+        <div class="container">
+            <div class="navbar-header navbar-right">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <span class="navbar-brand navbar-right" style="color:white">@Html.ActionLink("דף ניהול", "Index")</span>
+                <span class="navbar-brand navbar-right" style="color:white">@Html.ActionLink("הוספת מוצר", "InventoryPage")</span>
+                <span class="navbar-brand navbar-right" style="color:white">@Html.ActionLink("שינוי מוצרים", "ViewItem", "Admin")</span>
+                <span class="navbar-brand navbar-right" style="color:white">@Html.ActionLink("הזמנות", "ViewOrders")</span>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse navbar-left">
+
+
+                        <span class="navbar-brand" style="color:white">  @Session["Admin"]</span>
+                        <span class="navbar-brand" style="color:white" href="#">@Html.ActionLink("התנתק", "Logout")</span>
+                    </div>
+              
+            </div><!--/.nav
+            </div><!--/.navbar-collapse -->
+        </div>
+    </nav>
+    <div class="jumbotron">
+        <div class="container" style="text-align:right">
+            <h1>צפיה במלאי</h1>
+            <p>דף צפיה ועדכון מלאי</p>
+        </div>
+    </div>
+    @{
+        if (ViewData["Error"] != null)
+        {
+            <div class="alert alert alert-danger">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <p class="text-right"> @ViewData["Error"] <strong>שגיאה</strong></p>
+            </div>
+        }
+        if (ViewData["Ok"] != null)
+        {
+            <div class="alert alert-success">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <p class="text-right"><strong> @ViewData["Ok"]</strong> </p>
+            </div>
+        }
+                
+    }
+    <div>
+        <div class="container marketing">
+            <div class="row">
+                @{
+                    foreach (Inventory item in Model.itemsList)
+                    {
+
+                        <div class="col-lg-4">
+                            <img class="img-rounded" src="@item.url" alt="Generic placeholder image" width="140" height="140">
+                            <h3>@item.Name</h3>
+                            @using (@Html.BeginForm("updateItem", "Admin"))
+                            {
+                                <p>
+                                    <input id="Text1" name="Text1" type="hidden" value="@item.BarCode" />
+                                    @Html.TextBoxFor(m => item.Amount, new { @class = "input-field" ,Value = @item.Amount })&nbsp;&nbsp;&nbsp;<input id="Submit1" name="sub" type="submit" class="btn btn-primary" value="לשינוי כמות" /><br />
+                                    <span style="color:red">@Html.ValidationMessageFor(m => item.Amount)</span><br />
+                                    @Html.TextBoxFor(m => item.BarCode, new { @class = "input-field", @type = "hidden" })
+                                    @Html.TextBoxFor(m => item.Name, new { @class = "input-field", @type = "hidden", Value = @item.Name })
+                                    @Html.TextBoxFor(m => item.Price, new { @class = "input-field", Value = @item.Price })&nbsp;&nbsp;&nbsp;<input id="Submit1" name="sub" type="submit" class="btn btn-primary" value="לשינוי מחיר" /><br />
+                                    <span style="color:red">@Html.ValidationMessageFor(m => item.Price)</span><br />
+                                    @Html.TextBoxFor(m => item.url, new { @class = "input-field", @type = "hidden", Value = @item.url })
+                                    
+                                    
+                                </p>
+                            }
+                            
+                                <form action="deleteItem" method="post">
+
+                                    <input id="Text1" name="Text1" type="hidden" value="@item.BarCode" />
+                                    <input id="Submit1" name="sub" type="submit" class="btn btn-default" value="מחק" />
+                                </form>
+                            
+                        </div><!-- /.col-lg-4 -->
+                    }
+                }
+            </div><!-- /.row -->
+        </div>
+    </div>
+    <hr>
+
+    <footer>
+        <p>&copy; 2015 Company, Inc.</p>
+    </footer>
+    <!-- /container -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="~/css/js/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="~/css/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="~/css/js/ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>

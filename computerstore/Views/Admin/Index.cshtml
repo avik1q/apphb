@@ -1,0 +1,135 @@
+﻿@model ComputerStore.Models.Admin
+
+@{
+    Layout = null;
+}
+
+
+
+
+    <!DOCTYPE html>
+    <html lang="he">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>דף ניהול</title>
+        <link rel="icon" href="../../favicon.ico">
+
+        
+
+        <!-- Bootstrap core CSS -->
+        <link href="~/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <link href="~/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="~/css/jumbotron.css" rel="stylesheet">
+
+        <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+        <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+        <script src="~/css/js/ie-emulation-modes-warning.js"></script>
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="~/css/js/html5shiv.min.js"></script>
+          <script src="~/css/js/respond.min.js"></script>
+        <![endif]-->
+
+        <meta name="NetsparkQuiltingResult" total-length="5106" removed="0" rules-found="w2845,w3477,w7694,w221,w4318,w8192,w3281,w5783" />
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-inverse navbar-fixed-top text-right">
+            <div class="container">
+                <div class="navbar-header navbar-right">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <span class="navbar-brand navbar-right" style="color:white">@Html.ActionLink("דף ניהול", "Index")</span>
+                    <span class="navbar-brand navbar-right" style="color:white">@Html.ActionLink("הוספת מוצר", "InventoryPage")</span>
+                    <span class="navbar-brand navbar-right" style="color:white">@Html.ActionLink("שינוי מוצרים", "ViewItem", "Admin")</span>
+                    <span class="navbar-brand navbar-right" style="color:white">@Html.ActionLink("הזמנות", "ViewOrders")</span>
+                </div>
+            <div id="navbar" class="navbar-collapse collapse navbar-left">
+
+                        <span class="navbar-brand" style="color:white" >  @Session["Admin"]</span>
+                        <span class="navbar-brand" style="color:white" href="#">@Html.ActionLink("התנתק", "Logout")</span>
+
+            </div><!--/.nav
+                </div><!--/.navbar-collapse -->
+            </div>
+        </nav>
+
+        <!-- Main jumbotron for a primary marketing message or call to action -->
+        <div class="jumbotron" style="text-align:right">
+            <div class="container">
+                <h1>דף מנהל</h1>
+                <p>.שלום לך מנהל יקר בדף זה תוכל לנהל את כל האתר <br /> כולל צפיה במלאי עדכון מלאי הוספת מוצר חדש צפיה בהזמנות ולראות איך הלקוחות רואים את האתר</p>
+                
+            </div>
+        </div>
+
+        <div class="container pull-right" style="text-align:right">
+            <!-- Example row of columns -->
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>צפיה במלאי</h2>
+                    <p>צפיה במלאי</p>
+                    @using (Html.BeginForm("ViewItem", "Admin"))
+                    {
+                        <button class="btn  btn-info" type="submit">צפה במלאי</button>
+                    }               
+                </div>
+                <div class="col-md-4">
+                    <h2>הוספת מוצר חדש</h2>
+                    <p>הוספה של מוצר חדש</p>
+                    @using (Html.BeginForm("InventoryPage", "Admin"))
+                    {
+                        <button class="btn btn-success" type="submit">הוסף מוצר</button>
+                    }               
+                </div>
+                <div class="col-md-4">
+                    <h2>צפיה בהזמנות</h2>
+                    <p>צפיה בהזמנות</p>
+                    @using (Html.BeginForm("ViewOrders", "Admin"))
+                    {
+                        <button class="btn btn-info" type="submit">צפה בהזמנות</button>
+                    }   
+                </div>
+                <div class="col-md-4 pull-right">
+                    <h2>כניסה לאתר</h2>
+                    <p>כניסה לאתר</p>
+                    @using (Html.BeginForm("home", "Home"))
+                    {
+                        <button class="btn btn-info" type="submit">כנס לאתר</button>
+                    }
+                </div>
+            </div>
+
+            <hr>
+
+            <footer>
+                <p>&copy; 2015 Company, Inc.</p>
+            </footer>
+        </div> <!-- /container -->
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="~/css/js/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+        <script src="~/css/js/bootstrap.min.js"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="~/css/js/ie10-viewport-bug-workaround.js"></script>
+    </body>
+</html>
+
